@@ -1,6 +1,6 @@
 # :school: PAI Lab assignment [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-# Lissajous Curves: A Simple Event Driven Graphic web Application in vanilla Typescript
+# Mini Balatro: A Simple Event Driven Graphic web Application in vanilla Typescript
 
 ## Purpose
 The objectives of this assignment are to put into practice:

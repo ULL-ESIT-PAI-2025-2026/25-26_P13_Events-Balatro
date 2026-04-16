@@ -74,7 +74,7 @@ mientras que en el segundo ha de incluir un enlace (véase el apartado *Presenta
 Haga que el fichero `README.md` de su proyecto sea la primera página de la documentación del mismo.
 
 ### El juego Balatro
-Balatro es un juego *deckbuilder roguelike* basado en póker en el que en cada partida se juegan manos de póker para conseguir puntos 
+Balatro es un juego *roguelike* de construcción de mazos basado en póker en el que en cada partida se juegan manos de póker para conseguir puntos 
 (“chips”) suficientes en cada ronda, mientras se compran mejoras (especialmente *jokers*) que multiplican tu puntuación. 
 Su interés viene de cómo se combinan manos, cartas modificadas y jokers para crear combos cada vez más explosivos dentro de una partida.
 
@@ -82,8 +82,13 @@ Cada partida se divide en combates llamados *small blind*, *big blind* y *boss b
 Cada blind exige alcanzar un número objetivo de chips jugando un número limitado de manos y descartes. 
 Si la jugadora supera el objetivo antes de quedarse sin manos, gana ese blind y avanza en el juego.
 
-Se juega con un mazo de cartas de póker estándar.
-: en tu turno puedes descartar algunas cartas para robar nuevas o seleccionar hasta cinco cartas para formar una mano de póker (pareja, color, full, etc.). Cada mano jugada se traduce en una puntuación según el tipo de jugada (base de “chips” y “multiplicador”) más el valor de las cartas individuales; la puntuación total se acumula contra el objetivo de chips del blind actual.
+Se juega con un 
+[mazo de 52 cartas](https://en.wikipedia.org/wiki/Standard_52-card_deck)
+de póker estándar.
+En cada turno el jugador puedes descartar algunas cartas para robar nuevas o seleccionar hasta cinco 
+cartas para formar una mano de póker (pareja, color, full, etc.). 
+Cada mano jugada se traduce en una puntuación según el tipo de jugada (base de “chips” y “multiplicador”) 
+más el valor de las cartas individuales; la puntuación total se acumula contra el objetivo de chips del blind actual.
 
 ### El juego del Poker
 En esta práctica se propone desarrollar una aplicación web SPA 
