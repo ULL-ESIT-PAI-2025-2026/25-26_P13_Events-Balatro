@@ -84,8 +84,24 @@ Si la jugadora supera el objetivo antes de quedarse sin manos, gana ese blind y 
 
 Se juega con un 
 [mazo de 52 cartas](https://en.wikipedia.org/wiki/Standard_52-card_deck)
-de póker estándar.
-En cada turno el jugador puedes descartar algunas cartas para robar nuevas o seleccionar hasta cinco 
+de póker estándar (baraja francesa).
+La baraja francesa está dividida en cuatro palos (*suits*), dos de color rojo y dos de color negro:
+
+* ♠ Spades (picas).
+* ♥ Hearts (corazones).
+* ♦ Diamonds (diamantes).
+* ♣ Clubs (tréboles).
+
+Cada palo está formado por 13 cartas, de las cuales 9 son numerales y 4 literales. 
+Se ordenan de menor a mayor "rango" de la siguiente forma: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K. 
+Las cartas con letras (figuras), se llaman Jack (J), Queen (Q), King (K) y Ace (A, *As*).
+Dependiendo del juego, un As puede ser más alto que el Rey o más bajo que 2.
+
+Si se quiere definir una clase para representar una carta de juego, 
+es obvio cuáles deben ser los atributos mínimos imprescindibles: valor, palo y la imagen asociada con la carta.
+El directorio `img` de este proyecto contiene ficheros gráficos correspondientes a todas las cartas de la baraja francesa.
+
+En cada turno el jugador puede descartar algunas cartas para robar nuevas o seleccionar hasta cinco 
 cartas para formar una mano de póker (pareja, color, full, etc.). 
 Cada mano jugada se traduce en una puntuación según el tipo de jugada (base de “chips” y “multiplicador”) 
 más el valor de las cartas individuales; la puntuación total se acumula contra el objetivo de chips del blind actual.
@@ -109,28 +125,9 @@ modelar en su programa: cartas (*cards*), mazo de cartas (*deck*), etc.
 
 ### La clase *Card*
 Se propone desarrollar en el módulo `card.ts` una clase `Card` que permita representar cartas de la barja francesa.
-La baraja francesa está dividida en cuatro palos (en inglés: *suits*), dos de color rojo y dos de color negro:
 
-* ♠ Spades (picas).
-* ♥ Hearts (corazones).
-* ♦ Diamonds (diamantes).
-* ♣ Clubs (tréboles).
 
-Cada palo está formado por 13 cartas, de las cuales 9 son numerales y 4 literales. 
-Se ordenan de menor a mayor "rango" de la siguiente forma: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K. 
-Las cartas con letras (figuras), se llaman Jack (J), Queen (Q), King (K) y Ace (A, *As*).
-Dependiendo del juego, un As puede ser más alto que el Rey o más bajo que 2.
 
-Si se quiere definir una clase para representar una carta de juego, 
-es obvio cuáles deben ser los atributos mínimos imprescindibles: valor, palo y la imagen asociada con la carta.
-El directorio `img` de este proyecto contiene ficheros gráficos correspondientes a todas las cartas de la baraja francesa.
-
-Defina una clase `Card` para representar las cartas.
-Si no se especifica algo diferente, al crear un objeto de esta clase se crearía un 2 de tréboles.
-
-A efectos de depuración es posible que le resulte útil desarrollar un método `toString()` que permita imprimir en consola un objeto `Card`.
-Las cartas han de poder imprimirse de forma que sean legibles para un humano.
-Así al escribir en consola se podría espera encontrar textos como:
 
 ```
 Ace of Diamonds
