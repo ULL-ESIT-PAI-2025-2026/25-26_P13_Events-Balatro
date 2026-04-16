@@ -1,7 +1,7 @@
 # Práctica 12. Programación Gráfica Orientada a Eventos. El framework Bulma CSS. Balatro.
 
 ### Factor de ponderación: 10 
-### Estimación de horas de trabajo para realizar la práctica: 6
+### Estimación de horas de trabajo para realizar la práctica: 10
 
 
 ### Objetivos
@@ -45,43 +45,16 @@ y que es capaz de trabajar con la misma en Visual Studio Code
 * Todas las prácticas realizadas hasta la fecha, incluída la que se presenta para su evaluación, se encuentran alojadas en repositorios privados de GitHub.
 * Acreditar que es capaz de editar ficheros de forma remota en su VM usando Visual Studio Code
 
-### Indicaciones de caracter general
-* La aplicación que desarrolle ha de ser orientada a objetos y conforme a la arquitectura MVC.
-Ponga en práctica en su desarrollo los fundamentos, principios y buenas prácticas de la OOP así como los
-conocimientos que haya adquirido en el uso de patrones de diseño.
-
-* Aloje ficheros de configuración adecuados en el directorio raíz de su proyecto, de modo que se contemplen todas las dependencias del mismo.
-
-* Utilice un fichero distinto para el código de cada una de las clases que intervienen en su programa.
-
-* Encapsule las clases en módulos que exporten la correspondiete clase hacia otros programas clientes que pudieran utilizarla.
-
-* Todo el código estará ubicado en el directorio `src/home-work` del proyecto. Use subdirectorios de éste si le resulta conveniente.
-
-* Antes de comenzar a desarrollar su programa dedique el tiempo necesario a diseñar la estructura de clases que 
-utilizará en su programa, así como las relaciones existentes entre las mismas. 
-Utilice 
-[LucidChart](https://www.lucidchart.com/pages/es)
-o una aplicación similar para realizar un diagrama UML para esas clases, que ha de añadir a la página índice de esta práctica. Asegúrese de la corrección de su diagrama UML.
-
-* Realice, como siempre, un diseño incremental del programa comprobando cada una de las funcionalidades que añade, siguiendo un
-desarrollo TDD.
-
-* Cuando finalice su desarrollo modifique el fichero `README.md` de su proyecto incluyendo la información habitual en cualquier proyecto público en GitHub. 
-Incluya en ese fichero dos apartados, Building and Running the code y Live Demo. 
-En el primero de ellos ha de explicar en detalle cómo a partir de clonar su repo público ha de compilarse, ejecutarse y desplegarse su aplicación, 
-mientras que en el segundo ha de incluir un enlace (véase el apartado *Presentación de resultados de este documento*) a la URL pública donde deberá estar disponible su aplicación.
-Haga que el fichero `README.md` de su proyecto sea la primera página de la documentación del mismo.
-
 ### El juego Balatro
-Balatro es un juego *roguelike* de construcción de mazos basado en 
-[el poker](http://en.wikipedia.org/wiki/Poker), 
+[Balatro](https://en.wikipedia.org/wiki/Balatro)
+es un juego *roguelike* de construcción de mazos basado en 
+[el póker](http://en.wikipedia.org/wiki/Poker), 
 en el que en cada partida se juegan manos de póker para conseguir puntos 
 (“chips”) suficientes en cada ronda, mientras se compran mejoras (especialmente *jokers*) que multiplican tu puntuación. 
 Su interés viene de cómo se combinan manos, cartas modificadas y jokers para crear combos cada vez más explosivos dentro de una partida.
 
-Cada partida se divide en combates llamados *small blind*, *big blind* y *boss blind*.
-Cada blind exige alcanzar un número objetivo de chips jugando un número limitado de manos y descartes. 
+Cada partida se divide en niveles llamados *Small Blind*, *Big Blind* y *Boss Blind*.
+Cada nivel exige alcanzar un número objetivo de chips jugando un número limitado de manos y descartes. 
 Si la jugadora supera el objetivo antes de quedarse sin manos, gana ese blind y avanza en el juego.
 
 Se juega con un 
@@ -100,7 +73,7 @@ Las cartas con letras (figuras), se llaman Jack (J), Queen (Q), King (K) y Ace (
 Dependiendo del juego, un As puede ser más alto que el Rey o más bajo que 2.
 
 Si se quiere definir una clase para representar una carta de juego, 
-es obvio cuáles deben ser los atributos mínimos imprescindibles: valor, palo y la imagen asociada con la carta.
+es obvio cuáles deben ser los atributos **mínimos** imprescindibles: valor, palo y la imagen asociada con la carta.
 El directorio `public/img` de este proyecto contiene ficheros gráficos correspondientes a 
 todas las cartas de la baraja francesa, que puede Ud. usar en su desarrollo.
 Siéntase libre de usar otras imágenes si lo prefiere.
@@ -109,187 +82,145 @@ En cada turno el jugador puede descartar algunas cartas para robar nuevas o sele
 cartas para formar una 
 [mano de póker](https://en.wikipedia.org/wiki/List_of_poker_hands)
 (pareja, color, full, etc. o *One pair*, *Flush*, *Full House* de acuerdo a sus denominaciones en inglés). 
-Cada mano jugada se traduce en una puntuación según el tipo de jugada (base de “chips” y “multiplicador”) 
-más el valor de las cartas individuales; la puntuación total se acumula contra el objetivo de chips del blind actual.
 
-En cada blind el jugador tiene un número fijo de manos que puedes jugar y un número de descartes; 
-si los chips acumulados alcanzan el objetivo, el blind se considera superado y se pasa a la siguiente etapa.
+Las siguientes son las posibles manos en el póquer, en orden creciente de valor e indicando la puntuación
+(“chips” y “multiplicador”) 
+* *High Card*: la carta de mayor valor numérico. Chips: 5 Mult: 1 
+* *Pair* (Pareja): dos cartas con el mismo valor. Chips: 10 Mult: 2 
+* *Two Pair* (Doble par): dos pares de cartas con el mismo valor. Chips: 20 Mult: 2
+* *Three of a kind* (Trío): tres cartas con el mismo valor. Chips: 30 Mult: 3 
+* *Straight* (Escalera): cinco cartas con valores en secuencia (los ases pueden ser altos o bajos, 
+  así que el Ace-2-3-4-5 es una escalera y también lo es el 10-Jack-Queen-King-Ace, pero el Queen-King-Ace-2-3 no lo es). Chips: 30 Mult: 4
+* *Flush* (Color): cinco cartas con el mismo palo. Chips: 35 Mult: 4 
+* *Full House* (Full): tres cartas con un valor, dos cartas con otro. Chips: 40 Mult: 4
+* *Four of a Kind* (Poker): cuatro cartas con el mismo valor. Chips: 60 Mult: 7 
+* *Straight Flush* (Escalera real): cinco cartas en secuencia (como se definió anteriormente) y con el mismo palo. Chips: 100 Mult: 8
+
+Cada mano jugada se traduce en una puntuación según el tipo de jugada (base de “chips” y “multiplicador”) 
+más el valor de las cartas individuales; la puntuación total se acumula contra el objetivo de chips del nivel actual.
+
+En cada blind el jugador tiene un número fijo de manos que puede jugar y un número de descartes; 
+si los “chips” acumulados alcanzan el objetivo, el nivel se considera superado y se pasa al siguiente.
 Si el juagador acaba sus manos sin alcanzar el objetivo, la partida termina. 
 
 Utilice la aplicación
 [Mini Balatro](https://alu0101549491.github.io/TFG-Fabian-Gonzalez-Lence/3-MiniBalatro/)
 para jugar y sobre todo, conocer el juego.
-El botón *Hand Info* de la aplicación muestra en pantalla los tipos de manos del poker que utiliza así como el
+Mini Balatro está siendo desarrollada por D. Fabián G. Lence, estudiante del grado en informática en el marco
+de su Trabajo Fin de Grado.
+
+En la aplicación el botón *Hand Info* muestra en pantalla los tipos de manos del póker que utiliza así como el
 valor de cada una de ellas, de modo que para empezar, basta con saber reconocer las jugadas básicas de póker 
 y tratar de hacer siempre la mano más valiosa con las cartas que se tiene.
 
+En esta práctica se propone desarrollar en Vanilla TypeScript una primera aproximación simplificada del Blatro a través de una
+aplicación web web en formato SPA (*Single Page Application*) conforme al patrón MVC.
 
-### El juego del Poker
-En esta práctica se propone desarrollar una aplicación web SPA 
-[(Single Page Application)](https://en.wikipedia.org/wiki/Single-page_application)
-`poker.ts`
-La aplicación se diseñará conforme al patrón Modelo Vista Controlador.
+### Indicaciones de caracter general
+El programa que desarrolle ha de ser orientado a objetos y utilizar una arquitectura MVC.
+Ponga en práctica en su desarrollo los fundamentos, principios y buenas prácticas de la OOP así como los
+conocimientos que haya adquirido en el uso de patrones de diseño.
 
-A pesar de que este documento está escrito en español, se propone que los identificadores 
-que se usen en el código TypeScript utilicen la terminología en inglés para las entidades que ha de 
-modelar en su programa: cartas (*cards*), mazo de cartas (*deck*), etc.
+Utilice un fichero distinto para el código de cada una de las clases que intervienen en su programa.
 
-### La clase *Card*
-Se propone desarrollar en el módulo `card.ts` una clase `Card` que permita representar cartas de la barja francesa.
+Encapsule las clases en módulos que exporten la correspondiente clase a quien precise usarla.
 
+La estructura de directorios de su proyecto de práctica debe ser conforme con la establecida para las prácticas de PAI.
 
-Cualquier implementación que se elija para los atributos ha de permitir comparar cartas para determinar cuál tiene un valor o palo más alto.
-El orden de las cartas no es obvio. 
-Por ejemplo, ¿qué carta es más alta, el 3 de tréboles o el 2 de diamantes?
-Una tiene un valor más alto, pero la otra tiene un palo más alto. 
-Para comparar las cartas, ha de decidirse si es más importante el valor de la carta o el palo.
-La respuesta puede depender del juego que se esté jugando, pero para simplificar, 
-se hará la elección arbitraria de que el palo es más importante. 
-Se asumirá la siguiente ordenación para los palos:
+Configure adecuadamente ficheros `package.json` y `tsconfig.json` en el directorio raíz de su ejercicio 
+que permitan la instalación de las dependencias de su proyecto.
 
-`Clubs < Diamonds < Hearts < Spades`
+Actualice el fichero `README.md` con la información que considere relevante de su proyecto de práctica y haga que ese fichero
+sea la primera página de la documentación (TypeDoc) de la práctica.
 
-así que, por ejemplo, todas las picas superan a todos los corazones, y así sucesivamente.
-
-### Mazos. La clase *Deck* 
-Una vez diseñadas las cartas, el siguiente paso será definir un mazo (baraja completa). 
-Puesto que un mazo está compuesto de cartas, es natural que cada mazo contenga como atributo un conjunto de cartas.
-Defina una clase `Deck` para modelar un mazo de cartas. 
-El constructor de esa clase deberá inicializar el mazo con el conjunto estándar de 52 cartas.
-La clase `Deck` ha de disponer de un método que permita imprimir el mazo:
-
-```
-Ace of Clubs
-2 of Clubs
-3 of Clubs
-...
-10 of Spades
-Jack of Spades
-Queen of Spades
-King of Spades
-```
-
-Para gestionar el mazo y poder repartir cartas se precisan métodos para
-* Eliminar una carta del mazo y devolverla. `popCard()`
-* Añadir una carta determinada al mazo. `addCard()`
-* Barajar (mezclar) las cartas del mazo de modo que al sacar una carta del mazo, 
-  ésta no esté predeterminada por la configuración del mismo (aleatoriedad). `shuffle()`
-* Resulta también conveniente disponer de un método `sort()` que ordene las cartas del mazo.
-
-### Manos de cartas. La clase *Hand*.
-Para avanzar en el diseño de la aplicación propuesta se precisa también una clase 
-para representar las manos (las cartas asignadas a un jugador).
-Una mano (*Hand*) es similar a un mazo: tanto un mazo como una mano están formados 
-por un conjunto de cartas, y ambos requieren operaciones como añadir y quitar cartas.
-Una mano también es diferente de un mazo puesto que hay operaciones necesarias para las manos que no tienen sentido para un mazo. 
-Por ejemplo, en el póquer podríamos comparar dos manos para ver cuál gana. 
-El constructor de una mano debería inicializarla con un conjunto vacío de cartas:
-
-```typescript
-hand = new Hand('new hand')
-console.log(hand.cards);	// -> [ ]
-console.log(hand.label);	// -> new hand
-```
-La clase `Hand` también ha de disponer, como se ha expuesto, de métodos `popCard()` y `addCard()`:
-
-```typescript
-let deck = new Deck();
-let hand = new Hand();  // Creates an empty hand
-let card = deck.popCard();
-hand.addCard(card);
-console.log(hand);	// -> King of Spades
-```
-
-Un paso adicional es disponer de un método `moveCardsToHand()` que toma dos argumentos: una mano y el número de cartas a repartir.
-`moveCardsToHand()` toma del mazo el número de cartas a repartir y las coloca en la mano.
-
-En algunos juegos, las cartas se mueven de una mano a otra, o de una mano al mazo. 
-Se podrían desarrollar métodos específicos para estas operaciones, si resultan necesarios.
-
-Escriba un método de `Deck` llamado `dealHands()` que toma dos parámetros: el número de manos y el número de cartas por mano. 
-Debe crear el número apropiado de manos, repartir el número apropiado de cartas por mano y devolver una lista de Manos.
-
-En el póker las manos son de 5 cartas. 
-Desarrolle una clase `PokerHand()` que representará una mano de Póker.
-Las siguientes son las posibles manos en el póquer, en orden creciente de valor y decreciente de probabilidad:
-* *Pair* (Pareja): dos cartas con el mismo valor.
-* *Two Pair* (Doble par): dos pares de cartas con el mismo valor.
-* *Three of a kind* (Trío): tres cartas con el mismo valor.
-* *Straight* (Escalera): cinco cartas con valores en secuencia (los ases pueden ser altos o bajos, 
-  así que el Ace-2-3-4-5 es una escalera y también lo es el 10-Jack-Queen-King-Ace, pero el Queen-King-Ace-2-3 no lo es).
-* *Flush* (Color): cinco cartas con el mismo palo.
-* *Full House* (Full): tres cartas con un valor, dos cartas con otro.
-* *Four of a Kind* (Poker): cuatro cartas con el mismo valor.
-* *Straight Flush* (Escalera real): cinco cartas en secuencia (como se definió anteriormente) y con el mismo palo.
-
-Añada a la clase `PokerHand` métodos llamados `hasPair()`, `hasTwopair()`, `hasThreeOfaKind()` etc. 
-que devuelven Verdadero o Falso según si la mano cumple o no el correspondiente criterio. 
-Su código debería funcionar correctamente para manos que contengan cualquier número de 
-cartas (aunque 5 y 7 son los tamaños más comunes).
-
-Desarrolle un método `classify()` que determine la clasificación 
-de mayor valor para una mano y establezca un atributo de esa mano (valor de la mano) en consecuencia. 
-Por ejemplo, una mano de 5 cartas podría contener un trío y un par; debería ser etiquetada como "Three of a
-kind" (trío) puesto que esa es la jugada de mayor valor.
-
-Para comparar dos manos de cartas y determinar cuál es la ganadora, utilice las siguentes reglas:
-* Si hay un empate (p. ej. ambas manos contienen un trío como jugada más alta): la mano con la carta más alta es la ganadora (un trío de K gana a un trío de J).
-* Si resulta necesario, la segunda, tercera, cuarta y quinta carta más alta pueden romper el empate.
-* Si las cinco cartas tienen el mismo valor se usará el palo de la carta más alta para desempatar, usando la ordenación ya comentada: `Clubs < Diamonds < Hearts < Spades`
-
-### Interfaz gráfica del programa
-En toda la lógica expuesta anteriormente para la representación de elementos del juego del poker se ha omitido
-la representación gráfica de los diferentes elementos.
-Ha de añadir la lógica correspondiente para mostrar gráficamente en el navegador esos elementos: cartas,
-manos, etc.
-
-Utilice libremente los elementos HTML que considere más adecuados para la interfaz gráfica de su aplicación y
-dote de estilo a esos elementos utilizando Bulma.
-
-Desarrolle una página `poker.html` que muestre el viewport de su navegador dividido 
-en dos mitades, superior e inferior. 
-En cada una de las dos mitades (dos filas) ha de ubicar espacio para mostrar 5 cartas de 
-póker (una mano en cada fila, 10 cartas en total) y por debajo de estas dos mitades ha de 
-colocar sendos botones `Deal Hand1`, `Deal Hand2` que al ser pulsados produzcan la 
-visualización de una mano (5 cartas) asignadas a cada jugador.
-El programa ha de indicar cuál de los dos jugadores gana: jugador número uno, al que correponden 
-las cartas de la primera fila el número dos, a quien se asignan las cartas de la segunda fila.
-
-### Interfaz gráfica de la aplicación 
-La interfaz gráfica de la aplicación se desarrollará a través de diferentes páginas HTML.
 Haga que en el elemento `title` del código HTML de todas las páginas web de su poroyecto figure su nombre y apellidos.
 
-Se propone que, siguiendo el ejemplo de personalización de Bulma para su adaptación a la imagen corporativa de
-la ULL que se expuso en clase, personalice los estilos de todas sus páginas para que tengan el aspecto de las
-*páginas ULL*.
-La visualización de la ejecución del programa se realizará a través de una página web alojada
-en la máquina IaaS-ULL de la asignatura y cuya URL tendrá la forma:
+Utilice el depurador integrado en el navegador para confirmar que el flujo de ejecución de su programa es el correcto.
 
-[1] `http://10.6.129.123:8080/einstein-albert-poker.html`
+No intente desarrollar su aplicación en un único paso.
 
-en la que se presentarán las manos de la partida de poker.
-Sustituya *Albert Einstein* por su nombre y apellido en la URL de su página
-y la dirección IP anterior por la correspondiente a su máquina IaaS.
+Previo al desarrollo, realice un diseño de su aplicación identificando las diferentes clases que
+intervienen en el programa. 
+Utilice lápiz y papel para hacer un esquema de las relaciones entre las diferentes clases.
 
-Diseñe asimismo otra página HTML simple 
+Después de esa planificación inicial, trabaje mediante sucesivos refinamientos de una primera aproximación.
+También puede resultarle conveniente realizar pequeñas aplicaciones auxiliares que le sirvan para comprobar y
+aprender el funcionamiento de algún aspecto concreto de la aplicación.
 
-[2] `http://10.6.129.123:8080/index.html`
+Cuando finalice su aplicación, utilice 
+[Mermaid.js](https://mermaid.js.org/), 
+[Lucidchart](https://www.lucidchart.com/pages) o cualquier otra herramienta que conozca para trasladar sus
+diseños en papel a un diagrama en formato digital que pueda mostrar a través de una web.
 
-que sirva de "página índice" para los ejercicios de la sesión de evaluación de la práctica.
-La página [1] será uno de los enlaces de [2] y a su vez [1] tendrá un enlace "Home" que apunte a [2].
-Enlace también en la página índice [2] la página que contiene la documentación de su proyecto generada con
-Typedoc.
+La visualización de la ejecución del programa y su interfaz gráfica se desarrollará a través de una página web alojada
+en la máquina IaaS-ULL de la asignatura (puede utilizar también si lo desea la extensión *Live View* de VSC).
 
-Incluya una tercera página
+Configure en el directorio `/public` de su práctica, la página `index.html`, 
+que servirá de "página índice" tanto para su aplicación como para los ejercicios de la sesión de evaluación.
+Enlace también en esa página tanto la página que contiene la documentación (Typedoc) de su proyecto
+como otra que mostrará el diagrama UML de las clases que intervienen en su programa.
 
-[3] `http://10.6.129.123:8080/uml.html`
+### Interfaz gráfica y especificaciones de la aplicación 
+Tenga en cuenta las siguientes especificaciones a la hora de diseñar su programa:
 
-que muestre el diagrama UML de las clases que intervienen en su aplicación.
+Aunque este documento está escrito en español, se propone que los identificadores 
+que se usen en el código TypeScript utilicen la terminología en inglés para las entidades que ha de 
+modelar en su programa: cartas (*cards*), mazo de cartas (*deck*), nombres de los palos (*suits*), etc.
 
-Utilice lo que haya aprendido de CSS para dotar de estilo propio a las páginas HTML que
-desarrolle, aunque el CSS es el aspecto de menor importancia en este ejercicio.
+Intente que su aplicación imite en la medida de lo posible el aspecto y funcionalidades de
+[Mini Balatro](https://alu0101549491.github.io/TFG-Fabian-Gonzalez-Lence/3-MiniBalatro/)
+que se tomará como referencia.
+
+Su página debería dividirse en las 5 secciones que muestra la aplicación de referencia:
+* Bloque 1: Level, Money, Round, Deck
+* Bloque 2: Jokers
+* Bloque 3: Objetivo de puntos
+* Bloque 4: Current Hand
+* Bloque 5: Previsualización de la puntuación (*Score Preview*)
+* Bloque 6: Control e información del juego
+
+Utilice todos aquellos elementos HTML que le resulten necesarios y use
+Bulma para dotar de estilo a esos elementos.
+Haga que el color de fondo de su página sea el color violeta característico de las “páginas ULL”, en lugar del
+color azul oscuro que muestra la aplicación de referencia.
+Utilice asimismo la *tipografía ULL* para su aplicación.
+No utilice en su aplicación código CSS salvo el procedente de la carga de Bulma.
+
+Su aplicación solo implementará el primer nivel (*Small Blind*) del juego.
+* Se reparten 8 cartas al inicio del juego
+* El jugador selecciona 1–5 cartas y elige:
+  * Jugar mano (máximo 3 veces por nivel), botón `Play Hand`
+  * Descartar, botón `Discard` (máximo 3 veces por nivel, las cartas se reponen del mazo)
+* Si acumula más puntos que el objetivo (300) pasa el nivel
+* Si agota las 3 manos sin alcanzar el objetivo, el juego finaliza
+
+Su aplicación ha de incluir los mismos botones y textos que la aplicación de referencia, aunque no todos 
+esos botones y textos estarán dotados de funcionalidad o serán actualizados:
+* Bloque 1. Con cada jugada o descarte se actualizará el texto de la parte superior derecha con el número de cartas restantes en el mazo.
+* Bloque 2. Se mostrarán los *slots* vacíos con una apariencia que queda a su elección.
+* Bloque 3. Se actualizará la información de objetivo y puntuación alcanzada.
+* Bloque 4. Se mostrarán las 8 cartas repartidas al inicio, que se resaltarán de algún modo que queda a
+  su elección, al ser seleccionada por el usuario.
+* Bloque 5. Mostrará la mano correspondiente a la selección del usuario así como el valor de la misma.
+* Todos los botones/textos del Bloque 6 han de ser funcionales (actuarán como corresponde o mostrarán el texto
+  correspondiente) salvo *Hand Info* que no tendrá efecto.
+
+Posiblemente su aplicación necesitará métodos `hasPair()`, `hasTwopair()`, `hasThreeOfaKind()` etc. 
+que indican si la mano seleccionada por el jugador cumple o no el correspondiente criterio. 
+Asimismo necesitará un método que determine la clasificación 
+de mayor valor para una mano y establezca el valor de la mano (“chips”) en consecuencia. 
+Por ejemplo, una mano de 5 cartas podría contener un trío y un par; debería ser etiquetada como “Three of a
+kind” (trío) puesto que esa es la jugada de mayor valor.
+
+Se da libertad al alumnado para implementar como crea oportuno aquellos comportamientos que no estén
+descritos en esta especificación o bien resulten difíciles de realizar como se hace en la aplicación de
+refeerencia.
+
+Tenga en cuenta que el objetivo del proyecto es practicar en una aplicación concreta los conceptos estudiados
+en la asignatura y no que su aplicación replique exactamente la de referencia.
 
 ## Referencias
+* [Balatro](https://en.wikipedia.org/wiki/Balatro)
 * [Poker](http://en.wikipedia.org/wiki/Poker)
 * [Bulma](https://bulma.io/)
 * [TypeDoc](https://typedoc.org/)
