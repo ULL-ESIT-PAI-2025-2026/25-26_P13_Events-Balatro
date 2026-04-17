@@ -1,4 +1,4 @@
-# Práctica 12. Programación Gráfica Orientada a Eventos. El framework Bulma CSS. Balatro.
+# Práctica 13. Programación Gráfica Orientada a Eventos. El framework Bulma CSS. Balatro.
 
 ### Factor de ponderación: 10 
 ### Estimación de horas de trabajo para realizar la práctica: 10
